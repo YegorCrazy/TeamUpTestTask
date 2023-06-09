@@ -1,0 +1,186 @@
+openapi: 3.0.0
+
+info:
+  title: a simple tests service
+  version: 1.0.0
+
+paths:
+  /tests/create:
+    post:
+      summary: create a new test login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  test_login:
+                    $ref: "#/components/schemas/TestLogin"
+                required:
+                  - test_login
+        '4XX':
+          description: some error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorWithPayload"
+  
+  /tests/add_result/iq:
+    post:
+      summary: add iq test result
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                test_login:
+                  $ref: "#/components/schemas/TestLogin"
+                points:
+                  $ref: "#/components/schemas/IQTestPoints"
+              required:
+                - test_login
+                - points
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  test_login:
+                    $ref: "#/components/schemas/TestLogin"
+                  test_result:
+                    $ref: "#/components/schemas/IQTestResult"
+                required:
+                  - test_login
+                  - test_result
+        '4XX':
+          description: some error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorWithPayload"
+                
+  /tests/add_result/eq:
+    post:
+      summary: add eq test result
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                test_login:
+                  $ref: "#/components/schemas/TestLogin"
+                answer:
+                  $ref: "#/components/schemas/EQTestAnswer"
+              required:
+                - test_login
+                - answer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  test_login:
+                    $ref: "#/components/schemas/TestLogin"
+                  test_result:
+                    $ref: "#/components/schemas/IQTestResult"
+                required:
+                  - test_login
+                  - test_result
+        '4XX':
+          description: some error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorWithPayload"
+                
+  /tests/get_result:
+    get:
+      summary: get test results
+      parameters:
+        - in: query
+          name: test_login
+          required: true
+          schema:
+            $ref: "#/components/schemas/TestLogin"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  test_login:
+                    $ref: "#/components/schemas/TestLogin"
+                  iq_test_result:
+                    $ref: "#/components/schemas/IQTestResult"
+                  eq_test_result:
+                    $ref: "#/components/schemas/EQTestResult"
+                required:
+                  - test_login
+                  
+        '4XX':
+          description: some error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorWithPayload"
+  
+components:
+  schemas:
+    TestLogin:
+      type: string
+      pattern: "^[a-zA-Z]{10}$"
+      
+    IQTestPoints:
+      type: integer
+      minimum: 0
+      maximum: 50
+      
+    IQTestResult:
+      type: object
+      properties:
+        points:
+          $ref: "#/components/schemas/IQTestPoints"
+        answer_datetime:
+          type: string
+          pattern: date-time
+      required:
+        - points
+        - answer_datetime
+      
+    EQTestAnswer:
+      type: string
+      pattern: "^[абвгд]{5}$"
+      
+    EQTestResult:
+      type: object
+      properties:
+        answer:
+          $ref: "#/components/schemas/EQTestAnswer"
+        answer_datetime:
+          type: string
+          pattern: date-time
+      required:
+        - answer
+        - answer_datetime
+  
+    ErrorWithPayload:
+      type: object
+      properties:
+        code:
+          type: integer
+        payload:
+          type: string
