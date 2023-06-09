@@ -94,7 +94,7 @@ paths:
                   test_login:
                     $ref: "#/components/schemas/TestLogin"
                   test_result:
-                    $ref: "#/components/schemas/IQTestResult"
+                    $ref: "#/components/schemas/EQTestResult"
                 required:
                   - test_login
                   - test_result
@@ -105,11 +105,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorWithPayload"
                 
-  /tests/get_result:
+  /tests/get_result/{test_login}:
     get:
       summary: get test results
       parameters:
-        - in: query
+        - in: path
           name: test_login
           required: true
           schema:
