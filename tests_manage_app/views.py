@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.core.exceptions import ValidationError
 from .models import Test
 import random
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 @api_view(['POST'])
@@ -44,7 +44,7 @@ def AddResultIQ(request):
                              'payload': 'wrong points number'},
                             status=400)
 
-    answer_time = datetime.now()
+    answer_time = datetime.now(tz=timezone.utc)
     test = Test.objects.filter(Login=test_login)
     if len(test) == 0:
         return JsonResponse({'code': 78,
@@ -82,7 +82,7 @@ def AddResultEQ(request):
                              'payload': 'wrong test answer'},
                             status=400)
 
-    answer_time = datetime.now()
+    answer_time = datetime.now(tz=timezone.utc)
     test = Test.objects.filter(Login=test_login)
     if len(test) == 0:
         return JsonResponse({'code': 78,
