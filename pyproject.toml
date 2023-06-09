@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "teamup-django-project"
+version = "0.1.0"
+description = ""
+authors = ["YegorCrazy <egor2002288@gmail.com>"]
+readme = "README.md"
+packages = [{include = "teamup_django_project"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.2.2"
+djangorestframework = "^3.14.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
