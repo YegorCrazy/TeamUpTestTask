@@ -11,7 +11,7 @@ python3 manage.py migrate
 python3 manage.py runserver 0.0.0.0
 ```
 
-**Запуск тестов**
+**Запуск тестов** (их немного, но лучше, чем ничего)
 
 ```
 python3 manage.py test
@@ -34,7 +34,7 @@ python3 manage.py test
    
    ```
    {
-   	"test_login": "vkrQYwawTy"
+       "test_login": "vkrQYwawTy"
    }
    ```
 2. Ввод результатов теста IQ:
@@ -44,8 +44,8 @@ python3 manage.py test
      --url http://localhost:8000/tests/add_result/iq/ \
      --header 'Content-Type: application/json' \
      --data '{
-   	"test_login": "vkrQYwawTy",
-   	"points": 29
+       "test_login": "vkrQYwawTy",
+       "points": 29
    }'
    ```
    
@@ -53,11 +53,11 @@ python3 manage.py test
    
    ```
    {
-   	"test_login": "vkrQYwawTy",
-   	"test_result": {
-   		"points": 29,
-   		"answer_datetime": "2023-06-09T17:23:41.527Z"
-   	}
+       "test_login": "vkrQYwawTy",
+       "test_result": {
+           "points": 29,
+           "answer_datetime": "2023-06-09T17:23:41.527Z"
+       }
    }
    ```
 
@@ -68,8 +68,8 @@ python3 manage.py test
      --url http://localhost:8000/tests/add_result/eq/ \
      --header 'Content-Type: application/json' \
      --data '{
-   	"test_login": "vkrQYwawTy",
-   	"answer": "аббвд"
+       "test_login": "vkrQYwawTy",
+       "answer": "аббвд"
    }'
    ```
    
@@ -77,11 +77,11 @@ python3 manage.py test
    
    ```
    {
-   	"test_login": "vkrQYwawTy",
-   	"test_result": {
-   		"answer": "аббвд",
-   		"answer_datetime": "2023-06-09T17:24:18.200Z"
-   	}
+       "test_login": "vkrQYwawTy",
+       "test_result": {
+           "answer": "аббвд",
+           "answer_datetime": "2023-06-09T17:24:18.200Z"
+       }
    }
    ```
 
@@ -97,7 +97,11 @@ python3 manage.py test
    ```
    {
        "test_login": "vkrQYwawTy",
-       "test_result": {
+       "iq_test_result": {
+           "points": 29,
+           "answer_datetime": "2023-06-09T17:23:41.527Z"
+       },
+       "eq_test_result": {
            "answer": "аббвд",
            "answer_datetime": "2023-06-09T17:24:18.200Z"
        }
